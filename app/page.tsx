@@ -1,51 +1,94 @@
-import Image from "next/image";
+"use client";
+import { useState } from "react";
+import Story from "./components/Story";
 
 export default function Home() {
+  const handleBadAttempt = () => {
+    setIsButtonsDisabled(true);
+    alert(
+      "No! Dammit! You ruined everything! Now you have to refresh the whole page! Be more careful this time!"
+    );
+    setIsCorrectAttempt(false);
+  };
+
+  const handleCorrectAttempt = () => {
+    setIsButtonsDisabled(true);
+    alert("Correct! You may proceed.");
+    setIsCorrectAttempt(true);
+  };
+
+  const [isCorrectAttempt, setIsCorrectAttempt] = useState(false);
+  const [isButtonsDisabled, setIsButtonsDisabled] = useState(false);
+
   return (
     <main style={{ padding: "24px" }}>
-      <div style={{ fontFamily: "fantasy", fontSize: "20px", color: "red" }}>
-        <p>Hi Katarina,</p>
-        <p>
-          Wow, you've made some serious progress in solving these puzzles! I'm
-          proud of you!
-        </p>
-        <p>
-          You're very close to your{" "}
-          <span style={{ fontWeight: "bold", fontSize: "24px" }}>gift</span>,
-          don't give up now...
-        </p>
-        <p>
-          Do you remember that{" "}
-          <span style={{ fontWeight: "bold", fontSize: "24px" }}>e-mail</span>{" "}
-          that you received? Hopefully you didn't delete it... It contains{" "}
-          <span style={{ fontWeight: "bold", fontSize: "24px" }}>
-            four numbers
-          </span>
-          . When combined, they form the code for the{" "}
-          <span style={{ fontWeight: "bold", fontSize: "24px" }}>locker</span>.
-        </p>
-        <p>
-          The locker is at the{" "}
-          <span style={{ fontWeight: "bold", fontSize: "24px" }}>
-            2nd floor
-          </span>
-          . I didn't want to be so mean to make you go all the way to the 8th
-          floor.
-        </p>
-        <p>
-          But which locker exactly is it? Well... It has to do something with
-          your{" "}
-          <span style={{ fontWeight: "bold", fontSize: "24px" }}>
-            birth date
-          </span>
-          ...
-        </p>
-        <p>Now go inspect all lockers and try to find out which one it is.</p>
-        <p>Almost there... Good luck!</p>
-        <p>Ho ho ho!</p>
-        <br />
-        <Image src="/santa.png" alt="Santa" width={180} height={180} />
-      </div>
+      {!isCorrectAttempt && (
+        <div style={{ fontFamily: "fantasy", fontSize: "20px", color: "red" }}>
+          <p>Hello,</p>
+          <p>
+            Before we proceed, I just need to verify that you are really... you.
+          </p>
+          <p>
+            Can you please click the correct registration plate number of your
+            car?
+          </p>
+          <button
+            id="button1"
+            style={{
+              fontFamily: "monospace",
+              fontSize: "24px",
+              fontWeight: "bold",
+              padding: "8px",
+              margin: "2px",
+              cursor: "pointer",
+              borderRadius: "8px",
+              backgroundColor: "red",
+              color: "white",
+            }}
+            onClick={handleBadAttempt}
+            disabled={isButtonsDisabled}
+          >
+            BG-2138-LT
+          </button>
+          <button
+            id="button2"
+            style={{
+              fontFamily: "monospace",
+              fontSize: "24px",
+              fontWeight: "bold",
+              padding: "8px",
+              margin: "2px",
+              cursor: "pointer",
+              borderRadius: "8px",
+              backgroundColor: "red",
+              color: "white",
+            }}
+            onClick={handleCorrectAttempt}
+            disabled={isButtonsDisabled}
+          >
+            BG-6666-XX
+          </button>
+          <button
+            id="button3"
+            style={{
+              fontFamily: "monospace",
+              fontSize: "24px",
+              fontWeight: "bold",
+              padding: "8px",
+              margin: "2px",
+              cursor: "pointer",
+              borderRadius: "8px",
+              backgroundColor: "red",
+              color: "white",
+            }}
+            onClick={handleBadAttempt}
+            disabled={isButtonsDisabled}
+          >
+            PZ-2305-KK
+          </button>
+        </div>
+      )}
+      {isCorrectAttempt && <Story />}
     </main>
   );
 }
