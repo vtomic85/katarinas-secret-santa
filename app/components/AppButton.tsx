@@ -13,17 +13,16 @@ function AppButton(props: AppButtonProps): JSX.Element {
     <Button
       onClick={onClick}
       disabled={isButtonsDisabled}
-      style={{
-        fontFamily: "monospace",
-        fontSize: "24px",
-        fontWeight: "bold",
-        padding: "8px",
-        margin: "2px",
-        cursor: "pointer",
-        borderRadius: "8px",
-        backgroundColor: "red",
-        color: "white",
-      }}
+      p={8}
+      bgColor="red"
+      _hover={{ bgColor: "red.300", color: "red" }}
+      fontFamily={"monospace"}
+      fontSize={24}
+      fontWeight={"bold"}
+      cursor={"pointer"}
+      borderRadius={"8px"}
+      color={"white"}
+      m={1}
     >
       {label}
     </Button>
