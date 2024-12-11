@@ -1,94 +1,61 @@
 "use client";
 import { useState } from "react";
-import Story from "./components/Story";
+import MainStory from "./components/MainStory";
+import RegPlateButtons from "./components/RegPlateButtons";
+import { BUTTON_LABELS } from "./const";
+import IntroText from "./components/IntroText";
+import FailMessage from "./components/FailMessage";
+import SuccessMessage from "./components/SuccessMessage";
 
 export default function Home() {
   const handleBadAttempt = () => {
     setIsButtonsDisabled(true);
-    alert(
-      "No! Dammit! You ruined everything! Now you have to refresh the whole page! Be more careful this time!"
-    );
+    setHasTriedOnce(true);
     setIsCorrectAttempt(false);
   };
 
   const handleCorrectAttempt = () => {
     setIsButtonsDisabled(true);
-    alert("Correct! You may proceed.");
+    setHasTriedOnce(true);
     setIsCorrectAttempt(true);
+  };
+
+  const proceedToMainStory = () => {
+    setIsMainStoryVisible(true);
   };
 
   const [isCorrectAttempt, setIsCorrectAttempt] = useState(false);
   const [isButtonsDisabled, setIsButtonsDisabled] = useState(false);
+  const [hasTriedOnce, setHasTriedOnce] = useState(false);
+  const [isMainStoryVisible, setIsMainStoryVisible] = useState(false);
 
   return (
-    <main style={{ padding: "24px" }}>
+    <main
+      style={{
+        padding: "24px",
+        fontFamily: "fantasy",
+        fontSize: "20px",
+        color: "red",
+      }}
+    >
       {!isCorrectAttempt && (
-        <div style={{ fontFamily: "fantasy", fontSize: "20px", color: "red" }}>
-          <p>Hello,</p>
-          <p>
-            Before we proceed, I just need to verify that you are really... you.
-          </p>
-          <p>
-            Can you please click the correct registration plate number of your
-            car?
-          </p>
-          <button
-            id="button1"
-            style={{
-              fontFamily: "monospace",
-              fontSize: "24px",
-              fontWeight: "bold",
-              padding: "8px",
-              margin: "2px",
-              cursor: "pointer",
-              borderRadius: "8px",
-              backgroundColor: "red",
-              color: "white",
-            }}
-            onClick={handleBadAttempt}
-            disabled={isButtonsDisabled}
-          >
-            BG-2138-LT
-          </button>
-          <button
-            id="button2"
-            style={{
-              fontFamily: "monospace",
-              fontSize: "24px",
-              fontWeight: "bold",
-              padding: "8px",
-              margin: "2px",
-              cursor: "pointer",
-              borderRadius: "8px",
-              backgroundColor: "red",
-              color: "white",
-            }}
-            onClick={handleCorrectAttempt}
-            disabled={isButtonsDisabled}
-          >
-            BG-6666-XX
-          </button>
-          <button
-            id="button3"
-            style={{
-              fontFamily: "monospace",
-              fontSize: "24px",
-              fontWeight: "bold",
-              padding: "8px",
-              margin: "2px",
-              cursor: "pointer",
-              borderRadius: "8px",
-              backgroundColor: "red",
-              color: "white",
-            }}
-            onClick={handleBadAttempt}
-            disabled={isButtonsDisabled}
-          >
-            PZ-2305-KK
-          </button>
+        <div>
+          {!hasTriedOnce && <IntroText />}
+          {!hasTriedOnce && (
+            <RegPlateButtons
+              handleBadAttempt={handleBadAttempt}
+              handleCorrectAttempt={handleCorrectAttempt}
+              isButtonsDisabled={isButtonsDisabled}
+              buttonLabels={BUTTON_LABELS}
+            />
+          )}
+          {hasTriedOnce && <FailMessage />}
         </div>
       )}
-      {isCorrectAttempt && <Story />}
+      {isCorrectAttempt && hasTriedOnce && !isMainStoryVisible && (
+        <SuccessMessage proceedToMainStory={proceedToMainStory} />
+      )}
+      {isCorrectAttempt && isMainStoryVisible && <MainStory />}
     </main>
   );
 }

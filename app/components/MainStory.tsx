@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
-function Story(): JSX.Element {
+function MainStory(): JSX.Element {
   return (
     <div style={{ fontFamily: "fantasy", fontSize: "20px", color: "red" }}>
       <p>Hi Katarina,</p>
@@ -42,4 +42,4 @@ function Story(): JSX.Element {
   );
 }
 
-export default Story;
+export default MainStory;
