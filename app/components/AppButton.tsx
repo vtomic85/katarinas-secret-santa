@@ -1,14 +1,18 @@
+import { Button } from "@chakra-ui/react";
 import React from "react";
 
-interface ButtonProps {
+interface AppButtonProps {
   onClick: () => void;
   isButtonsDisabled: boolean;
   label: string;
 }
-function Button(props: ButtonProps): JSX.Element {
+
+function AppButton(props: AppButtonProps): JSX.Element {
   const { onClick, isButtonsDisabled, label } = props;
   return (
-    <button
+    <Button
+      onClick={onClick}
+      disabled={isButtonsDisabled}
       style={{
         fontFamily: "monospace",
         fontSize: "24px",
@@ -20,12 +24,10 @@ function Button(props: ButtonProps): JSX.Element {
         backgroundColor: "red",
         color: "white",
       }}
-      onClick={onClick}
-      disabled={isButtonsDisabled}
     >
       {label}
-    </button>
+    </Button>
   );
 }
 
-export default Button;
+export default AppButton;

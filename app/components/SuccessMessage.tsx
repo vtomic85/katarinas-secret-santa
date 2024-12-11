@@ -1,6 +1,6 @@
 import React from "react";
-import Button from "./Button";
-
+import AppButton from "./AppButton";
+import { Text, VStack } from "@chakra-ui/react";
 interface SuccessMessageProps {
   proceedToMainStory: () => void;
 }
@@ -8,14 +8,14 @@ interface SuccessMessageProps {
 function SuccessMessage(props: SuccessMessageProps): JSX.Element {
   const { proceedToMainStory } = props;
   return (
-    <>
-      <p>Yes! Correct! It's really you! You may now proceed.</p>
-      <Button
+    <VStack>
+      <Text>Yes! Correct! It's really you! You may now proceed.</Text>
+      <AppButton
         onClick={proceedToMainStory}
         isButtonsDisabled={false}
         label="Proceed"
       />
-    </>
+    </VStack>
   );
 }
 

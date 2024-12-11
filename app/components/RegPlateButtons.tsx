@@ -1,5 +1,6 @@
 import React from "react";
-import Button from "./Button";
+import AppButton from "./AppButton";
+import { VStack } from "@chakra-ui/react";
 
 interface RegPlateButtonsProps {
   handleBadAttempt: () => void;
@@ -16,23 +17,23 @@ function RegPlateButtons(props: RegPlateButtonsProps): JSX.Element {
     buttonLabels,
   } = props;
   return (
-    <div>
-      <Button
+    <VStack>
+      <AppButton
         onClick={handleBadAttempt}
         isButtonsDisabled={isButtonsDisabled}
         label={buttonLabels[0]}
       />
-      <Button
+      <AppButton
         onClick={handleCorrectAttempt}
         isButtonsDisabled={isButtonsDisabled}
         label={buttonLabels[1]}
       />
-      <Button
+      <AppButton
         onClick={handleBadAttempt}
         isButtonsDisabled={isButtonsDisabled}
         label={buttonLabels[2]}
       />
-    </div>
+    </VStack>
   );
 }
 

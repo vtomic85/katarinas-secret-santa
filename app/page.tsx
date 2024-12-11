@@ -6,6 +6,7 @@ import { BUTTON_LABELS } from "./const";
 import IntroText from "./components/IntroText";
 import FailMessage from "./components/FailMessage";
 import SuccessMessage from "./components/SuccessMessage";
+import { ChakraProvider, Container, defaultSystem } from "@chakra-ui/react";
 
 export default function Home() {
   const handleBadAttempt = () => {
@@ -30,32 +31,36 @@ export default function Home() {
   const [isMainStoryVisible, setIsMainStoryVisible] = useState(false);
 
   return (
-    <main
-      style={{
-        padding: "24px",
-        fontFamily: "fantasy",
-        fontSize: "20px",
-        color: "red",
-      }}
-    >
-      {!isCorrectAttempt && (
-        <div>
-          {!hasTriedOnce && <IntroText />}
-          {!hasTriedOnce && (
-            <RegPlateButtons
-              handleBadAttempt={handleBadAttempt}
-              handleCorrectAttempt={handleCorrectAttempt}
-              isButtonsDisabled={isButtonsDisabled}
-              buttonLabels={BUTTON_LABELS}
-            />
+    <ChakraProvider value={defaultSystem}>
+      <Container alignSelf="center" mx="1rem">
+        <main
+          style={{
+            padding: "24px",
+            fontFamily: "fantasy",
+            fontSize: "20px",
+            color: "red",
+          }}
+        >
+          {!isCorrectAttempt && (
+            <div>
+              {!hasTriedOnce && <IntroText />}
+              {!hasTriedOnce && (
+                <RegPlateButtons
+                  handleBadAttempt={handleBadAttempt}
+                  handleCorrectAttempt={handleCorrectAttempt}
+                  isButtonsDisabled={isButtonsDisabled}
+                  buttonLabels={BUTTON_LABELS}
+                />
+              )}
+              {hasTriedOnce && <FailMessage />}
+            </div>
           )}
-          {hasTriedOnce && <FailMessage />}
-        </div>
-      )}
-      {isCorrectAttempt && hasTriedOnce && !isMainStoryVisible && (
-        <SuccessMessage proceedToMainStory={proceedToMainStory} />
-      )}
-      {isCorrectAttempt && isMainStoryVisible && <MainStory />}
-    </main>
+          {isCorrectAttempt && hasTriedOnce && !isMainStoryVisible && (
+            <SuccessMessage proceedToMainStory={proceedToMainStory} />
+          )}
+          {isCorrectAttempt && isMainStoryVisible && <MainStory />}
+        </main>
+      </Container>
+    </ChakraProvider>
   );
 }
